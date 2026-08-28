@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+python-multipart
+python-dotenv
+pydantic
+pydantic-settings
+python-docx
+sentence-transformers
+chromadb
+numpy
+scikit-learn
+openai
+httpx
+pillow
+pymupdf
