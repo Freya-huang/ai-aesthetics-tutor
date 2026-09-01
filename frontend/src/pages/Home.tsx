@@ -28,7 +28,7 @@ export default function Home() {
         { icon: Compass, text: '批判思考' },
         { icon: Sparkles, text: '文献溯源' },
       ],
-      gradient: 'linear-gradient(135deg, #ec4899, #f43f5e)',
+      gradient: 'linear-gradient(135deg, #9a413b, #c9822c)',
       bgClass: 'task-card-rose',
     },
   ];
@@ -40,7 +40,7 @@ export default function Home() {
           <Sparkles size={16} />
           <span>基于知识库的智能美学教育</span>
         </div>
-        <h1 className="home-hero-title">AI美学导师</h1>
+        <h1 className="home-hero-title">EIDOS</h1>
         <p className="home-hero-subtitle">
           融合人工智能与美学理论，为你的艺术创作与学术研究提供智能辅助
         </p>

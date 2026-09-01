@@ -18,6 +18,7 @@ class MessageType(str, Enum):
     FOLLOWUP_ANSWER = "followup_answer"
     WELCOME = "welcome"
     CLARIFICATION = "clarification"
+    CONCEPT_LESSON = "concept_lesson"
 
 
 class DetectedIntent(str, Enum):
@@ -26,6 +27,7 @@ class DetectedIntent(str, Enum):
     FOLLOWUP = "followup"
     CHAT = "chat"
     CLARIFICATION_NEEDED = "clarification_needed"
+    CONCEPT_LEARNING = "concept_learning"
 
 
 class AttachmentType(str, Enum):

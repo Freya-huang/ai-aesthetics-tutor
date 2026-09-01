@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Aperture, MessageCircle, Image, FileText, Archive } from 'lucide-react';
+import { Aperture, MessageCircle, Image, FileText, Archive, User } from 'lucide-react';
 import type { ReactNode } from 'react';
 
 interface LayoutProps {
@@ -30,7 +30,7 @@ export default function Layout({ children }: LayoutProps) {
             <span className="layout-logo-icon">
               <Aperture size={24} strokeWidth={1.6} />
             </span>
-            <span className="layout-logo-text">AI美学导师</span>
+            <span className="layout-logo-text">EIDOS</span>
           </Link>
           <nav className="layout-nav">
             {navItems.map((item) => {
@@ -48,11 +48,16 @@ export default function Layout({ children }: LayoutProps) {
               );
             })}
           </nav>
+          <div className="layout-user">
+            <button type="button" className="layout-user-btn" aria-label="个人中心">
+              <User size={18} strokeWidth={1.8} />
+            </button>
+          </div>
         </div>
       </header>
       <main className="layout-main">{children}</main>
       <footer className="layout-footer">
-        <p>AI美学导师 — 智能美学教育辅助系统</p>
+        <p>EIDOS｜智能美学学习辅助系统</p>
       </footer>
     </div>
   );

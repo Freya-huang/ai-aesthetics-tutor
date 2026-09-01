@@ -19,9 +19,6 @@ import FollowupCard from '@/components/FollowupCard';
 
 const MAX_PDF_SIZE = 50 * 1024 * 1024;
 const ACCEPTED_FORMAT = 'application/pdf';
-const PRIMARY_COLOR = '#0d9488';
-const PRIMARY_BG = 'rgba(13, 148, 136, 0.08)';
-const PRIMARY_GRADIENT = 'linear-gradient(135deg, #0d9488, #0f766e)';
 
 interface FollowupItem {
   id: string;
@@ -210,7 +207,7 @@ export default function PaperInterpret() {
           <span>返回首页</span>
         </Link>
         <div className="page-header-content">
-          <div className="page-icon-wrapper" style={{ background: PRIMARY_GRADIENT, boxShadow: '0 8px 16px -4px rgba(13, 148, 136, 0.3)' }}>
+          <div className="page-icon-wrapper">
             <FileText size={32} />
           </div>
           <div>
@@ -241,10 +238,6 @@ export default function PaperInterpret() {
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 htmlFor="paper-pdf-input"
-                style={{
-                  '--upload-primary': PRIMARY_COLOR,
-                  '--upload-primary-light': 'rgba(13, 148, 136, 0.1)',
-                } as React.CSSProperties}
               >
                 <input
                   ref={fileInputRef}
@@ -254,18 +247,18 @@ export default function PaperInterpret() {
                   onChange={handleInputChange}
                   className="upload-input"
                 />
-                <div className="upload-icon upload-icon-pdf" style={{ background: 'linear-gradient(135deg, rgba(13, 148, 136, 0.1), rgba(20, 184, 166, 0.1))', color: PRIMARY_COLOR }}>
+                <div className="upload-icon upload-icon-pdf">
                   <Upload size={40} />
                 </div>
                 <p className="upload-text">
-                  <span className="upload-text-primary" style={{ color: PRIMARY_COLOR }}>点击上传</span> 或拖拽PDF到此处
+                  <span className="upload-text-primary">点击上传</span> 或拖拽PDF到此处
                 </p>
                 <p className="upload-hint">支持 PDF 格式，大小不超过 50MB</p>
               </label>
             ) : (
               <div className="pdf-preview-wrapper">
                 <div className="pdf-preview-card">
-                  <div className="pdf-icon" style={{ background: PRIMARY_BG, color: PRIMARY_COLOR }}>
+                  <div className="pdf-icon">
                     <FileText size={40} />
                   </div>
                   <div className="pdf-info">
@@ -327,7 +320,6 @@ export default function PaperInterpret() {
               className="submit-btn submit-btn-interpret"
               onClick={handleSubmit}
               type="button"
-              style={{ background: PRIMARY_GRADIENT, boxShadow: '0 4px 12px -2px rgba(13, 148, 136, 0.4)' }}
             >
               <Sparkles size={18} />
               <span>开始解读</span>
@@ -346,13 +338,13 @@ export default function PaperInterpret() {
         <div className="interpret-result-container">
           <div className="result-header">
             <div className="result-header-left">
-              <div className="result-pdf-thumb" style={{ background: PRIMARY_BG, color: PRIMARY_COLOR }}>
+              <div className="result-pdf-thumb">
                 <FileText size={28} />
               </div>
               <div className="result-meta">
                 <h2 className="result-title">论文解读报告</h2>
                 <p className="result-subtitle">
-                  <span className="result-tag" style={{ background: 'linear-gradient(135deg, rgba(13, 148, 136, 0.1), rgba(20, 184, 166, 0.1))', color: PRIMARY_COLOR }}>PDF</span>
+                  <span className="result-tag">PDF</span>
                   {pdfFile && <span className="result-meta-text">{pdfFile.name}</span>}
                 </p>
               </div>
@@ -362,7 +354,7 @@ export default function PaperInterpret() {
                 <RefreshCw size={16} />
                 <span>重新解读</span>
               </button>
-              <Link to="/" className="result-action-btn result-action-btn-primary" style={{ background: PRIMARY_GRADIENT, boxShadow: '0 4px 12px -2px rgba(13, 148, 136, 0.4)' }}>
+              <Link to="/" className="result-action-btn result-action-btn-primary">
                 <Home size={16} />
                 <span>返回首页</span>
               </Link>
@@ -377,7 +369,7 @@ export default function PaperInterpret() {
 
           {followups.length > 0 && (
             <div className="followups-section">
-              <h3 className="followups-title" style={{ color: PRIMARY_COLOR }}>
+              <h3 className="followups-title">
                 <Send size={18} />
                 <span>追问记录</span>
               </h3>

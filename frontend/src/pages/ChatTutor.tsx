@@ -31,6 +31,7 @@ import {
 import type { ArtDiagnosisOutput, KnowledgePoint, PaperInterpretOutput } from '@/types';
 import DiagnosisResult from '@/components/DiagnosisResult';
 import InterpretResult from '@/components/InterpretResult';
+import ChatMarkdown from '@/components/ChatMarkdown';
 
 interface ChatMessage {
   id: string;
@@ -73,15 +74,21 @@ function historyMessageToChat(message: ChatHistoryMessage): ChatMessage | null {
     pdfFile: pdfAttachment ? { name: pdfAttachment.filename } : undefined,
     diagnosisResult: resultType === 'art' ? result as ArtDiagnosisOutput : undefined,
     interpretResult: resultType === 'paper' ? result as PaperInterpretOutput : undefined,
+    suggestedActions: message.metadata?.knowledge_suggestions,
     isWelcome: message.type === 'welcome',
   };
 }
 
 function WelcomePanel({ composer, onSelect }: { composer?: ReactNode; onSelect: (prompt: string) => void }) {
   const capabilities = [
-    { icon: ScanSearch, title: '细读一件作品', text: '从构图、色彩与光影开始观察', prompt: '请引导我分析一件作品的构图、色彩和光影。' },
+    { icon: ScanSearch, title: '欣赏一幅作品', text: '从构图、色彩与光影开始观察', prompt: '请引导我分析一件作品的构图、色彩和光影。' },
     { icon: BookOpen, title: '研读一篇论文', text: '梳理论点、概念、证据与学术脉络', prompt: '我想研读一篇美学论文，请帮我建立阅读框架。' },
-    { icon: Sparkles, title: '开始审美练习', text: '把抽象概念转化为可执行的训练', prompt: '请根据我的水平生成一个十五分钟的视觉审美练习。' },
+    {
+      icon: Sparkles,
+      title: '美学概念解读',
+      text: '用双层解释法，从生活类比进入专业理论',
+      prompt: '我想学习一个美学概念。\n概念或问题：【填写概念或问题】\n希望联系的方向：艺术作品',
+    },
   ];
   return (
     <div className="chat-welcome-panel">
@@ -114,7 +121,7 @@ function actionsForMessage(message: ChatMessage): string[] {
   const explainActions = recommended.slice(0, 2).map((point) => `解释「${point.name}」`);
   if (message.diagnosisResult) return [...explainActions, '生成一个针对性练习', '给我一个修改示例'];
   if (message.interpretResult) return [...explainActions, '生成阅读提纲', '给我三个讨论问题'];
-  return message.suggestedActions?.slice(0, 3).map((item) => `解释「${item}」`) || [];
+  return message.suggestedActions?.slice(0, 3) || [];
 }
 
 export default function ChatTutor() {
@@ -417,6 +424,7 @@ export default function ChatTutor() {
         </div>
       );
     }
+    if (message.role === 'assistant') return <ChatMarkdown content={message.content} />;
     return <div className="chat-message-text" style={{ whiteSpace: 'pre-wrap' }}>{message.content}</div>;
   };
 
@@ -426,7 +434,7 @@ export default function ChatTutor() {
         <div className="chat-header-content">
           <div className="chat-header-icon"><Palette size={28} /></div>
           <div className="chat-header-copy">
-            <h1 className="chat-title">AI美学导师</h1>
+            <h1 className="chat-title">EIDOS</h1>
             <p className="chat-subtitle">陪你一起看作品、读论文、聊美学</p>
           </div>
           <button type="button" className="chat-history-toggle" onClick={() => setIsHistoryOpen((open) => !open)} aria-expanded={isHistoryOpen}>
@@ -485,11 +493,21 @@ export default function ChatTutor() {
                         </div>
                       )}
                       <div className={`chat-bubble ${message.role}`}>{renderMessageContent(message)}</div>
-                      {resultType && resultSessionId && actions.length > 0 && (
+                      {actions.length > 0 && (
                         <div className="chat-quick-actions" aria-label="快捷追问">
                           <span><Sparkles size={14} /> 接着探索</span>
                           {actions.map((action) => (
-                            <button key={action} type="button" onClick={() => handleQuickAction(action, resultType, resultSessionId)} disabled={isLoading}>{action}</button>
+                            <button
+                              key={action}
+                              type="button"
+                              onClick={() => {
+                                if (resultType && resultSessionId) handleQuickAction(action, resultType, resultSessionId);
+                                else void sendMessage(action);
+                              }}
+                              disabled={isLoading}
+                            >
+                              {action}
+                            </button>
                           ))}
                         </div>
                       )}

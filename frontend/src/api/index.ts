@@ -185,7 +185,11 @@ export interface ChatHistoryMessage {
   content: string;
   timestamp: number;
   attachments?: Array<{ type: 'image' | 'pdf'; filename: string }>;
-  metadata?: { result_type?: 'art' | 'paper'; result?: ArtDiagnosisOutput | PaperInterpretOutput };
+  metadata?: {
+    result_type?: 'art' | 'paper';
+    result?: ArtDiagnosisOutput | PaperInterpretOutput;
+    knowledge_suggestions?: string[];
+  };
 }
 
 export interface ArchivedReport {

@@ -50,7 +50,11 @@ export default function Archive() {
       : (report.result as PaperInterpretOutput).key_concepts?.map((point) => ({ name: point.name, description: point.description })) || [];
     const fallback = report.report_type === 'art'
       ? [{ name: '本次重点学习', description: (report.result as ArtDiagnosisOutput).key_learning }]
-      : [{ name: '论文核心观点', description: (report.result as PaperInterpretOutput).core_thesis }];
+      : [{
+          name: '一句话概括',
+          description: (report.result as PaperInterpretOutput).one_sentence_summary
+            || (report.result as PaperInterpretOutput).core_thesis,
+        }];
 
     return (points.length > 0 ? points : fallback).map((point, pointIndex) => ({
       ...point,

@@ -42,10 +42,16 @@ export interface PaperImageRef {
 }
 
 export interface PaperInterpretOutput {
+  one_sentence_summary?: string;
+  core_questions?: string[];
+  core_viewpoints?: string[];
+  argument_process?: string[];
+  course_creation_connections?: string[];
+  next_reflection_task?: string;
   literature_info: string;
   core_thesis: string;
   research_questions: string[];
-  key_concepts: Array<{ name: string; description: string; citations?: PageCitation[] }>;
+  key_concepts: Array<{ name: string; description: string; page_number?: number; citations?: PageCitation[] }>;
   argument_structure: Array<{ section: string; summary: string; page?: number }>;
   classical_connections: Array<{ topic: string; connection: string }>;
   paper_images: PaperImageRef[];

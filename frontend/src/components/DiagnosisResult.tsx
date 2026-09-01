@@ -25,20 +25,18 @@ interface SectionConfig {
   title: string;
   icon: typeof Target;
   type: 'text' | 'list';
-  color: string;
-  bgColor: string;
 }
 
 const sections: SectionConfig[] = [
-  { key: 'creative_goal', title: '你的创作目标', icon: Target, type: 'text', color: '#4f46e5', bgColor: 'rgba(79, 70, 229, 0.08)' },
-  { key: 'visual_observations', title: '我观察到的视觉现象', icon: Eye, type: 'text', color: '#0ea5e9', bgColor: 'rgba(14, 165, 233, 0.08)' },
-  { key: 'strengths', title: '值得保留的地方', icon: ThumbsUp, type: 'list', color: '#10b981', bgColor: 'rgba(16, 185, 129, 0.08)' },
-  { key: 'key_learning', title: '本次重点学习', icon: GraduationCap, type: 'text', color: '#f59e0b', bgColor: 'rgba(245, 158, 11, 0.08)' },
-  { key: 'aesthetics_knowledge', title: '美学知识讲解', icon: BookOpen, type: 'text', color: '#8b5cf6', bgColor: 'rgba(139, 92, 246, 0.08)' },
-  { key: 'multiple_perspectives', title: '多元理解方向', icon: Layers, type: 'list', color: '#ec4899', bgColor: 'rgba(236, 72, 153, 0.08)' },
-  { key: 'revision_tasks', title: '本轮修改任务', icon: ClipboardList, type: 'list', color: '#ef4444', bgColor: 'rgba(239, 68, 68, 0.08)' },
-  { key: 'reflection_questions', title: '修改后的反思问题', icon: HelpCircle, type: 'list', color: '#6366f1', bgColor: 'rgba(99, 102, 241, 0.08)' },
-  { key: 'usage_boundaries', title: '使用边界', icon: ShieldAlert, type: 'text', color: '#64748b', bgColor: 'rgba(100, 116, 139, 0.08)' },
+  { key: 'creative_goal', title: '你的创作目标', icon: Target, type: 'text' },
+  { key: 'visual_observations', title: '我观察到的视觉现象', icon: Eye, type: 'text' },
+  { key: 'strengths', title: '值得保留的地方', icon: ThumbsUp, type: 'list' },
+  { key: 'key_learning', title: '本次重点学习', icon: GraduationCap, type: 'text' },
+  { key: 'aesthetics_knowledge', title: '美学知识讲解', icon: BookOpen, type: 'text' },
+  { key: 'multiple_perspectives', title: '多元理解方向', icon: Layers, type: 'list' },
+  { key: 'revision_tasks', title: '本轮修改任务', icon: ClipboardList, type: 'list' },
+  { key: 'reflection_questions', title: '修改后的反思问题', icon: HelpCircle, type: 'list' },
+  { key: 'usage_boundaries', title: '使用边界', icon: ShieldAlert, type: 'text' },
 ];
 
 export default function DiagnosisResult({ result, onKnowledgeClick, loadingKnowledgePoint }: DiagnosisResultProps) {
@@ -52,7 +50,7 @@ export default function DiagnosisResult({ result, onKnowledgeClick, loadingKnowl
         <ul className="diagnosis-list">
           {items.map((item, index) => (
             <li key={index} className="diagnosis-list-item">
-              <span className="diagnosis-list-bullet" style={{ backgroundColor: section.color }} />
+              <span className="diagnosis-list-bullet" />
               <span>{item.replace(/^[-•*]\s*/, '')}</span>
             </li>
           ))}
@@ -73,10 +71,7 @@ export default function DiagnosisResult({ result, onKnowledgeClick, loadingKnowl
         return (
           <div key={section.key} className="diagnosis-section">
             <div className="diagnosis-section-header">
-              <span
-                className="diagnosis-section-icon"
-                style={{ backgroundColor: section.bgColor, color: section.color }}
-              >
+              <span className="diagnosis-section-icon">
                 <Icon size={18} />
               </span>
               <h3 className="diagnosis-section-title">{section.title}</h3>
@@ -89,10 +84,7 @@ export default function DiagnosisResult({ result, onKnowledgeClick, loadingKnowl
       {result.sources && result.sources.length > 0 && (
         <div className="diagnosis-section">
           <div className="diagnosis-section-header">
-            <span
-              className="diagnosis-section-icon"
-              style={{ backgroundColor: 'rgba(100, 116, 139, 0.08)', color: '#64748b' }}
-            >
+            <span className="diagnosis-section-icon">
               <Library size={18} />
             </span>
             <h3 className="diagnosis-section-title">知识来源</h3>
@@ -110,10 +102,7 @@ export default function DiagnosisResult({ result, onKnowledgeClick, loadingKnowl
       {result.recommended_knowledge && result.recommended_knowledge.length > 0 && (
         <div className="diagnosis-section">
           <div className="diagnosis-section-header">
-            <span
-              className="diagnosis-section-icon"
-              style={{ backgroundColor: 'rgba(79, 70, 229, 0.08)', color: '#4f46e5' }}
-            >
+            <span className="diagnosis-section-icon">
               <GraduationCap size={18} />
             </span>
             <h3 className="diagnosis-section-title">推荐知识点</h3>

@@ -237,7 +237,7 @@ export default function ArtDiagnosis() {
           <span>返回首页</span>
         </Link>
         <div className="page-header-content">
-          <div className="page-icon-wrapper" style={{ background: 'linear-gradient(135deg, #4f46e5, #7c3aed)' }}>
+          <div className="page-icon-wrapper">
             <ImageIcon size={32} />
           </div>
           <div>

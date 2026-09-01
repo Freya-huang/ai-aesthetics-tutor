@@ -10,6 +10,12 @@ from app.paper_interpreter.models import (
 
 
 SECTION_PATTERNS = {
+    "one_sentence_summary": r"===ONE_SENTENCE_SUMMARY_START===\s*(.*?)\s*===ONE_SENTENCE_SUMMARY_END===",
+    "core_questions": r"===CORE_QUESTIONS_START===\s*(.*?)\s*===CORE_QUESTIONS_END===",
+    "core_viewpoints": r"===CORE_VIEWPOINTS_START===\s*(.*?)\s*===CORE_VIEWPOINTS_END===",
+    "argument_process": r"===ARGUMENT_PROCESS_START===\s*(.*?)\s*===ARGUMENT_PROCESS_END===",
+    "course_creation_connections": r"===COURSE_CREATION_CONNECTIONS_START===\s*(.*?)\s*===COURSE_CREATION_CONNECTIONS_END===",
+    "next_reflection_task": r"===NEXT_REFLECTION_TASK_START===\s*(.*?)\s*===NEXT_REFLECTION_TASK_END===",
     "literature_info": r"===LITERATURE_INFO_START===\s*(.*?)\s*===LITERATURE_INFO_END===",
     "core_thesis": r"===CORE_THESIS_START===\s*(.*?)\s*===CORE_THESIS_END===",
     "research_questions": r"===RESEARCH_QUESTIONS_START===\s*(.*?)\s*===RESEARCH_QUESTIONS_END===",
@@ -94,11 +100,18 @@ def _parse_key_concepts(section_text: str, total_pages: int) -> List[Dict[str, A
         name, description, page_str, quote = row[0], row[1], row[2], row[3]
         page_num = _validate_page_number(page_str, total_pages)
         if name and description:
+            citations = []
+            if page_num:
+                citations.append({
+                    "page_number": page_num,
+                    "quote_snippet": quote,
+                })
             concepts.append({
                 "name": name,
                 "description": description,
                 "page_number": page_num,
-                "quote": quote
+                "quote": quote,
+                "citations": citations,
             })
     return concepts
 
@@ -150,7 +163,7 @@ def _parse_recommended_reading(
     rows = _parse_pipe_separated(section_text, 3)
     for row in rows[:3]:
         name, source_id, reason = row[0], row[1], row[2]
-        if source_id not in source_ids and sources:
+        if source_id not in source_ids and source_id != "论文后续章节" and sources:
             source_id = sources[0].source_id
         if name and source_id:
             points.append(KnowledgePoint(
@@ -168,6 +181,12 @@ def parse_interpretation_output(
     paper_images: List[PaperImageRef],
     total_pages: int,
 ) -> PaperInterpretOutput:
+    one_sentence_summary = _extract_section(llm_output, SECTION_PATTERNS["one_sentence_summary"])
+    core_questions_text = _extract_section(llm_output, SECTION_PATTERNS["core_questions"])
+    core_viewpoints_text = _extract_section(llm_output, SECTION_PATTERNS["core_viewpoints"])
+    argument_process_text = _extract_section(llm_output, SECTION_PATTERNS["argument_process"])
+    course_connections_text = _extract_section(llm_output, SECTION_PATTERNS["course_creation_connections"])
+    next_reflection_task = _extract_section(llm_output, SECTION_PATTERNS["next_reflection_task"])
     literature_info = _extract_section(llm_output, SECTION_PATTERNS["literature_info"])
     core_thesis = _extract_section(llm_output, SECTION_PATTERNS["core_thesis"])
     research_questions_text = _extract_section(llm_output, SECTION_PATTERNS["research_questions"])
@@ -178,15 +197,26 @@ def parse_interpretation_output(
     recommended_reading_text = _extract_section(llm_output, SECTION_PATTERNS["recommended_reading"])
     page_citations_text = _extract_section(llm_output, SECTION_PATTERNS["page_citations"])
 
-    if not literature_info:
-        literature_info = f"论文共{total_pages}页，本次解读基于完整文本内容"
-    if not core_thesis:
-        core_thesis = f"论文核心观点解析中（共{total_pages}页）"
+    if not one_sentence_summary:
+        one_sentence_summary = core_thesis or f"本次解读基于当前PDF已呈现的{total_pages}页内容。"
+    if not core_questions_text:
+        core_questions_text = research_questions_text
+    if not argument_process_text and argument_structure_text:
+        legacy_argument_rows = _parse_argument_structure(argument_structure_text, total_pages)
+        argument_process_text = "\n".join(
+            f"- {row.get('section_title', '')}：{row.get('summary', '')} {row.get('page_range', '')}".strip()
+            for row in legacy_argument_rows
+        )
     if not contributions_limitations:
-        contributions_limitations = "论文贡献与局限分析：请结合具体页码标注进行参考"
+        contributions_limitations = "当前文本中没有足够证据判断其贡献与局限。"
+    if not next_reflection_task:
+        next_reflection_task = "请选择一个与论文主题相关的具体作品或视觉现象，用论文中的一个概念进行分析，并说明你的证据。"
 
-    research_questions = _parse_list_items(research_questions_text)
+    core_questions = _parse_list_items(core_questions_text)
+    core_viewpoints = _parse_list_items(core_viewpoints_text)
     key_concepts = _parse_key_concepts(key_concepts_text, total_pages)
+    argument_process = _parse_list_items(argument_process_text)
+    course_creation_connections = _parse_list_items(course_connections_text)
     argument_structure = _parse_argument_structure(argument_structure_text, total_pages)
     classical_connections = _parse_classical_connections(classical_connections_text, total_pages)
     recommended_reading = _parse_recommended_reading(recommended_reading_text, sources)
@@ -195,13 +225,19 @@ def parse_interpretation_output(
     sources_dict = {
         "page_citations": [citation.model_dump() for citation in page_citations],
         "rag_sources": [source.model_dump() for source in sources],
-        "usage_boundary": "本解读基于PDF文本内容生成，所有观点已标注页码。经典美学问题关联仅在证据充分时建立，不虚构理论联系。推荐知识点均来自检索到的共享知识库。"
+        "usage_boundary": "本解读只依据当前PDF已呈现内容生成，并区分作者观点、研究规划与解读推断。外部延伸阅读来自共享知识库。"
     }
 
     return PaperInterpretOutput(
+        one_sentence_summary=one_sentence_summary,
+        core_questions=core_questions,
+        core_viewpoints=core_viewpoints,
+        argument_process=argument_process,
+        course_creation_connections=course_creation_connections,
+        next_reflection_task=next_reflection_task,
         literature_info=literature_info,
-        core_thesis=core_thesis,
-        research_questions=research_questions,
+        core_thesis=one_sentence_summary,
+        research_questions=core_questions,
         key_concepts=key_concepts,
         argument_structure=argument_structure,
         classical_connections=classical_connections,

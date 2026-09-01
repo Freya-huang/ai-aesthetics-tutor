@@ -1713,7 +1713,7 @@
 
 .interpret-core-icon {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   width: 48px;
   height: 48px;
@@ -2304,13 +2304,15 @@
 }
 
 .chat-attachment-thumb.pdf {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(13, 148, 136, 0.1);
-  color: #0d9488;
+  background: rgba(201, 100, 66, 0.08);
+  color: var(--color-primary);
+  border-radius: 8px;
+  flex-shrink: 0;
 }
 
 .chat-attachment-name {

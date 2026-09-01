@@ -95,7 +95,7 @@ class LLMClient(BaseClient):
             return "art_followup"
         if "===CREATIVE_GOAL_START" in full_text:
             return "diagnosis"
-        if "===LITERATURE_INFO_START" in full_text:
+        if "===LITERATURE_INFO_START" in full_text or "===ONE_SENTENCE_SUMMARY_START" in full_text:
             return "paper"
         return "general"
 
@@ -157,19 +157,21 @@ class LLMClient(BaseClient):
 ===RECOMMENDED_KNOWLEDGE_END==="""
 
     def _mock_paper_response(self) -> str:
-        return """===LITERATURE_INFO_START===
-本论文为美学/艺术理论学术论文，共约10页。本次解读覆盖论文全文，重点关注核心论点、关键概念、论证结构以及与经典美学问题的关联。【Mock模式】
-===LITERATURE_INFO_END===
+        return """===ONE_SENTENCE_SUMMARY_START===
+当前文本以当代艺术现象为入口，界定审美经验、媒介与语境等概念，并为后续讨论技术如何改变艺术生产和接受方式建立问题框架[第1页]。【Mock模式模拟数据】
+===ONE_SENTENCE_SUMMARY_END===
 
-===CORE_THESIS_START===
-论文核心论点：探讨美学理论在当代艺术实践中的应用与反思，强调审美经验的多元性和语境依赖性[第1页]。【Mock模式模拟数据】
-===CORE_THESIS_END===
+===CORE_QUESTIONS_START===
+- 审美判断的普遍性与文化特殊性之间是什么关系？[第2页]
+- 媒介技术如何改变艺术的生产与接受方式？[第4页]
+- 传统美学范畴在当代艺术语境中是否仍然有效？[第7页]
+===CORE_QUESTIONS_END===
 
-===RESEARCH_QUESTIONS_START===
-- 审美判断的普遍性与文化特殊性之间的关系是什么？[第2页]
-- 媒介技术如何改变了艺术的生产与接受方式？[第4页]
-- 传统美学范畴在当代艺术语境中的有效性如何？[第7页]
-===RESEARCH_QUESTIONS_END===
+===CORE_VIEWPOINTS_START===
+- 审美经验并非脱离语境的纯粹个人感受，而与文化和观看条件相关[第2页]。
+- 媒介不仅承载作品，也参与构成作品的表达方式[第4页]。
+- 传统美学概念需要结合当代艺术实践重新检验其解释范围[第7页]。
+===CORE_VIEWPOINTS_END===
 
 ===KEY_CONCEPTS_START===
 审美经验|||指主体在与艺术作品相遇时产生的感知与情感体验|||第2页|||"审美经验是艺术研究的核心对象"
@@ -177,26 +179,31 @@ class LLMClient(BaseClient):
 语境|||艺术作品产生和被接受的社会文化背景|||第6页|||"脱离语境的审美判断是不完整的"
 ===KEY_CONCEPTS_END===
 
-===ARGUMENT_STRUCTURE_START===
-引言|||提出研究问题与文献综述|||第1-2页|||梳理现有美学理论的不足，确立研究视角
-理论框架|||构建核心概念体系|||第3-5页|||界定审美经验、媒介、语境三个核心概念
-案例分析|||具体艺术作品的解读|||第6-8页|||通过案例验证理论框架的解释力
-结论|||总结发现与展望|||第9-10页|||概括研究贡献，指出未来研究方向
-===ARGUMENT_STRUCTURE_END===
-
-===CLASSICAL_CONNECTIONS_START===
-意境|||论文第6页讨论了中国传统美学中"意境"概念与当代审美经验的对话|||第6页|||论文直接引用了王国维的意境理论
-===CLASSICAL_CONNECTIONS_END===
+===ARGUMENT_PROCESS_START===
+- 首先从当代艺术现象切入并提出研究问题[第1-2页]。
+- 随后界定审美经验、媒介与语境三个概念，搭建分析框架[第3-5页]。
+- 再通过具体案例检验这一框架的解释力[第6-8页]。
+- 最后总结已呈现的发现并提出后续研究方向[第9-10页]。
+===ARGUMENT_PROCESS_END===
 
 ===CONTRIBUTIONS_LIMITATIONS_START===
 论文的主要贡献在于：1）构建了一个整合性的审美经验分析框架[第3页]；2）将媒介维度系统引入美学分析[第5页]。局限性在于案例选取范围较窄，主要集中在视觉艺术领域[第9页]。建议未来研究可以拓展到音乐、文学等其他艺术门类。【Mock模式数据】
 ===CONTRIBUTIONS_LIMITATIONS_END===
 
+===COURSE_CREATION_CONNECTIONS_START===
+- 可联系“媒介即讯息”，理解创作工具如何参与作品意义的形成[第4页][来源ID：THE-006]。
+- 可用于比较传统媒介与生成式AI在创作控制、选择和接受方式上的差异[第4页]。
+===COURSE_CREATION_CONNECTIONS_END===
+
 ===RECOMMENDED_READING_START===
+论文后续章节|||论文后续章节|||继续核对作者如何展开创作机制与评价标准的完整论证
 意境|||THE-001|||意境是中国古典美学的核心范畴，与论文讨论直接相关
-气韵生动|||THE-002|||了解气韵生动有助于理解中国传统审美评价标准
 媒介即讯息|||THE-006|||麦克卢汉的媒介理论为理解技术与艺术关系提供框架
 ===RECOMMENDED_READING_END===
+
+===NEXT_REFLECTION_TASK_START===
+请选择一件你熟悉的数字或AI艺术作品，判断媒介在其中只是承载内容，还是实际改变了作品的表达方式；至少引用本文一个概念说明理由。
+===NEXT_REFLECTION_TASK_END===
 
 ===PAGE_CITATIONS_START===
 第1页|||提出核心研究问题
