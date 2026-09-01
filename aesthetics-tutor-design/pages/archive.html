@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习档案</title>
+    <style id="theme-vars">
+:root {
+  /* Brand palette — warm amber */
+  --brand-primary: #b86f26;
+  --brand-primary-light: #d99648;
+  --brand-primary-dark: #7e4518;
+  --brand-primary-foreground: #fffaf2;
+
+  /* Surfaces */
+  --brand-background: #f5efe5;
+  --brand-foreground: #31281f;
+  --brand-card: #fffaf2;
+  --brand-card-foreground: #31281f;
+  --brand-popover: #fffaf2;
+  --brand-popover-foreground: #31281f;
+
+  /* Muted / secondary text */
+  --brand-muted: #f3e6d2;
+  --brand-muted-foreground: #706256;
+
+  /* Borders & inputs */
+  --brand-border: #dfd2bf;
+  --brand-input: #dfd2bf;
+  --brand-ring: #b86f26;
+
+  /* Radius scale */
+  --brand-radius-sm: 4px;
+  --brand-radius-md: 8px;
+  --brand-radius-lg: 16px;
+
+  /* Semantic state colors */
+  --state-success: #6f7e45;
+  --state-warning: #c9822c;
+  --state-error: #9a413b;
+  --state-info: #6b7d8a;
+
+  /* Typography */
+  --brand-font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+
+  /* Spacing tokens */
+  --brand-s-1: 4px;
+  --brand-s-2: 8px;
+  --brand-s-3: 12px;
+  --brand-s-4: 16px;
+  --brand-s-5: 24px;
+  --brand-s-6: 32px;
+  --brand-s-7: 48px;
+  --brand-s-8: 80px;
+
+  /* Shadows */
+  --brand-shadow-1: 0 1px 2px rgba(70, 45, 24, 0.04), 0 1px 1px rgba(70, 45, 24, 0.03);
+  --brand-shadow-2: 0 8px 24px -8px rgba(70, 45, 24, 0.08);
+  --brand-shadow-3: 0 24px 60px -20px rgba(70, 45, 24, 0.12);
+}
+
+html { background: var(--brand-background); }
+
+body {
+  background:
+    radial-gradient(circle at 50% -18%, rgba(255, 224, 167, 0.38), transparent 43%),
+    var(--brand-background);
+  color: var(--brand-foreground);
+  font-family: var(--brand-font-sans);
+  letter-spacing: -0.008em;
+}
+
+button, input, textarea, select { letter-spacing: inherit; font-family: inherit; }
+
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid rgba(184, 111, 38, 0.42);
+  outline-offset: 2px;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--brand-background);
+    --color-foreground: var(--brand-foreground);
+    --color-card: var(--brand-card);
+    --color-card-foreground: var(--brand-card-foreground);
+    --color-popover: var(--brand-popover);
+    --color-popover-foreground: var(--brand-popover-foreground);
+    --color-primary: var(--brand-primary);
+    --color-primary-foreground: var(--brand-primary-foreground);
+    --color-muted: var(--brand-muted);
+    --color-muted-foreground: var(--brand-muted-foreground);
+    --color-border: var(--brand-border);
+    --color-input: var(--brand-input);
+    --color-ring: var(--brand-ring);
+    --radius-sm: var(--brand-radius-sm);
+    --radius-md: var(--brand-radius-md);
+    --radius-lg: var(--brand-radius-lg);
+  }
+  @layer base {
+    body { background: var(--brand-background); color: var(--brand-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--brand-background); }
+      .text-background { color: var(--brand-background); }
+      .border-background { border-color: var(--brand-background); }
+      .ring-background { --tw-ring-color: var(--brand-background); }
+      .bg-foreground { background-color: var(--brand-foreground); }
+      .text-foreground { color: var(--brand-foreground); }
+      .border-foreground { border-color: var(--brand-foreground); }
+      .ring-foreground { --tw-ring-color: var(--brand-foreground); }
+      .bg-card { background-color: var(--brand-card); }
+      .text-card { color: var(--brand-card); }
+      .border-card { border-color: var(--brand-card); }
+      .ring-card { --tw-ring-color: var(--brand-card); }
+      .bg-card-foreground { background-color: var(--brand-card-foreground); }
+      .text-card-foreground { color: var(--brand-card-foreground); }
+      .border-card-foreground { border-color: var(--brand-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--brand-card-foreground); }
+      .bg-popover { background-color: var(--brand-popover); }
+      .text-popover { color: var(--brand-popover); }
+      .border-popover { border-color: var(--brand-popover); }
+      .ring-popover { --tw-ring-color: var(--brand-popover); }
+      .bg-popover-foreground { background-color: var(--brand-popover-foreground); }
+      .text-popover-foreground { color: var(--brand-popover-foreground); }
+      .border-popover-foreground { border-color: var(--brand-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--brand-popover-foreground); }
+      .bg-primary { background-color: var(--brand-primary); }
+      .text-primary { color: var(--brand-primary); }
+      .border-primary { border-color: var(--brand-primary); }
+      .ring-primary { --tw-ring-color: var(--brand-primary); }
+      .bg-primary-foreground { background-color: var(--brand-primary-foreground); }
+      .text-primary-foreground { color: var(--brand-primary-foreground); }
+      .border-primary-foreground { border-color: var(--brand-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--brand-primary-foreground); }
+      .bg-muted { background-color: var(--brand-muted); }
+      .text-muted { color: var(--brand-muted); }
+      .border-muted { border-color: var(--brand-muted); }
+      .ring-muted { --tw-ring-color: var(--brand-muted); }
+      .bg-muted-foreground { background-color: var(--brand-muted-foreground); }
+      .text-muted-foreground { color: var(--brand-muted-foreground); }
+      .border-muted-foreground { border-color: var(--brand-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--brand-muted-foreground); }
+      .bg-border { background-color: var(--brand-border); }
+      .text-border { color: var(--brand-border); }
+      .border-border { border-color: var(--brand-border); }
+      .ring-border { --tw-ring-color: var(--brand-border); }
+      .bg-input { background-color: var(--brand-input); }
+      .text-input { color: var(--brand-input); }
+      .border-input { border-color: var(--brand-input); }
+      .ring-input { --tw-ring-color: var(--brand-input); }
+      .bg-ring { background-color: var(--brand-ring); }
+      .text-ring { color: var(--brand-ring); }
+      .border-ring { border-color: var(--brand-ring); }
+      .ring-ring { --tw-ring-color: var(--brand-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <main>
+      <!-- Top Navigation Header -->
+      <header class="sticky top-0 z-50 h-16 border-b border-border/60 bg-card/80 backdrop-blur-xl">
+        <div class="mx-auto flex h-16 max-w-7xl items-center px-6">
+          <a class="flex items-center gap-2.5" href="#">
+            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground">
+              <i data-lucide="aperture" class="h-5 w-5"></i>
+            </span>
+            <span class="text-[15px] font-semibold tracking-tight text-foreground">AI美学导师</span>
+          </a>
+          <nav class="ml-auto flex items-center gap-1">
+            <a class="flex items-center gap-1.5 rounded-md px-3 py-2 text-[13px] font-medium text-muted-foreground hover:text-foreground" href="#">
+              <i data-lucide="message-circle" class="h-4 w-4"></i>对话
+            </a>
+            <a class="flex items-center gap-1.5 rounded-md px-3 py-2 text-[13px] font-medium text-muted-foreground hover:text-foreground" href="#">
+              <i data-lucide="image" class="h-4 w-4"></i>作品诊断
+            </a>
+            <a class="flex items-center gap-1.5 rounded-md px-3 py-2 text-[13px] font-medium text-muted-foreground hover:text-foreground" href="#">
+              <i data-lucide="file-text" class="h-4 w-4"></i>论文解读
+            </a>
+            <a class="flex items-center gap-1.5 rounded-md bg-muted px-3 py-2 text-[13px] font-semibold text-primary" href="#">
+              <i data-lucide="archive" class="h-4 w-4"></i>学习档案
+            </a>
+            <button class="ml-2 flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-foreground" type="button">
+              <i data-lucide="user" class="h-4 w-4"></i>
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Page Header Section -->
+      <section class="mx-auto max-w-7xl px-6 pt-12 pb-6">
+        <div class="flex items-start gap-4">
+          <span class="flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+            <i data-lucide="archive" class="h-6 w-6"></i>
+          </span>
+          <div>
+            <h1 class="text-[25px] font-semibold tracking-[-0.035em] text-foreground">学习档案 · 成长森林</h1>
+            <p class="mt-1.5 max-w-[720px] text-[13px] leading-relaxed text-muted-foreground">每掌握一个知识点，就在这里种下一棵树。让学习留下可见的生长痕迹。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Growth Forest Section -->
+      <section class="mx-auto max-w-7xl px-6 pt-6 pb-10">
+        <!-- Section header row -->
+        <div class="forest-header-row">
+          <div>
+            <div class="flex items-center gap-1.5 text-primary">
+              <i data-lucide="leaf" class="h-3.5 w-3.5"></i>
+              <span class="text-[12px] font-semibold uppercase tracking-[0.08em]">YOUR LEARNING LANDSCAPE</span>
+            </div>
+            <h2 class="mt-2 text-[22px] font-semibold tracking-tight text-foreground">一片由知识长成的森林</h2>
+            <p class="mt-1.5 max-w-[640px] text-[13px] leading-relaxed text-muted-foreground">每棵树都对应一块进入学习档案的知识。点击树木，可以回到它生长的那次学习。</p>
+          </div>
+          <!-- Stats panel -->
+          <div class="stats-panel">
+            <div class="stat-block">
+              <div class="text-[34px] font-semibold tabular-nums leading-none text-foreground">6</div>
+              <div class="mt-1 text-[11px] uppercase tracking-[0.06em] text-muted-foreground">知识树</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-block">
+              <div class="text-[34px] font-semibold tabular-nums leading-none text-foreground">3</div>
+              <div class="mt-1 text-[11px] uppercase tracking-[0.06em] text-muted-foreground">学习记录</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Forest Map -->
+        <div class="forest-map mt-6">
+          <div class="forest-island">
+            <!-- Decorative organic shapes -->
+            <span class="island-shape island-shape-1"></span>
+            <span class="island-shape island-shape-2"></span>
+            <span class="island-shape island-shape-3"></span>
+
+            <!-- Tree layer -->
+            <div class="tree-layer">
+              <button class="tree-btn tree-large" type="button">
+                <i data-lucide="tree-pine" class="h-8 w-8"></i>
+                <span class="tree-label">构图</span>
+              </button>
+              <button class="tree-btn tree-medium" type="button">
+                <i data-lucide="tree-pine" class="h-7 w-7"></i>
+                <span class="tree-label">色彩关系</span>
+              </button>
+              <button class="tree-btn tree-large" type="button">
+                <i data-lucide="tree-pine" class="h-8 w-8"></i>
+                <span class="tree-label">视觉中心</span>
+              </button>
+              <button class="tree-btn tree-small" type="button">
+                <i data-lucide="tree-pine" class="h-6 w-6"></i>
+                <span class="tree-label">意境</span>
+              </button>
+              <button class="tree-btn tree-medium" type="button">
+                <i data-lucide="tree-pine" class="h-7 w-7"></i>
+                <span class="tree-label">气韵生动</span>
+              </button>
+              <button class="tree-btn tree-small" type="button">
+                <i data-lucide="tree-pine" class="h-6 w-6"></i>
+                <span class="tree-label">机械复制时代</span>
+              </button>
+            </div>
+
+            <!-- Legend -->
+            <div class="forest-legend">
+              <span class="legend-item">
+                <i data-lucide="image" class="h-3.5 w-3.5"></i>作品观察林
+              </span>
+              <span class="legend-item">
+                <i data-lucide="book-open" class="h-3.5 w-3.5"></i>论文研读林
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Archive List + Detail Split -->
+      <section class="mx-auto max-w-7xl px-6 pb-12">
+        <div class="archive-split">
+          <!-- Left: Report List -->
+          <aside class="archive-list">
+            <div class="mb-3 flex items-center justify-between px-1">
+              <h3 class="text-[13px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">学习记录</h3>
+              <span class="text-[12px] text-muted-foreground tabular-nums">3</span>
+            </div>
+
+            <div class="report-item report-active" tabindex="0">
+              <span class="report-icon report-icon-amber">
+                <i data-lucide="image" class="h-4 w-4"></i>
+              </span>
+              <div class="report-meta">
+                <div class="report-title">水彩风景练习</div>
+                <div class="report-sub">作品诊断 · 2026-08-22 14:30</div>
+              </div>
+              <button class="report-delete" type="button" aria-label="删除">
+                <i data-lucide="trash-2" class="h-3.5 w-3.5"></i>
+              </button>
+            </div>
+
+            <div class="report-item" tabindex="0">
+              <span class="report-icon">
+                <i data-lucide="image" class="h-4 w-4"></i>
+              </span>
+              <div class="report-meta">
+                <div class="report-title">数字插画色彩研究</div>
+                <div class="report-sub">作品诊断 · 2026-08-18 10:22</div>
+              </div>
+              <button class="report-delete" type="button" aria-label="删除">
+                <i data-lucide="trash-2" class="h-3.5 w-3.5"></i>
+              </button>
+            </div>
+
+            <div class="report-item" tabindex="0">
+              <span class="report-icon">
+                <i data-lucide="file-text" class="h-4 w-4"></i>
+              </span>
+              <div class="report-meta">
+                <div class="report-title">崇高美学理论解读</div>
+                <div class="report-sub">论文解读 · 2026-08-15 16:45</div>
+              </div>
+              <button class="report-delete" type="button" aria-label="删除">
+                <i data-lucide="trash-2" class="h-3.5 w-3.5"></i>
+              </button>
+            </div>
+          </aside>
+
+          <!-- Right: Detail Panel -->
+          <div class="archive-detail">
+            <!-- Report header -->
+            <div class="detail-header">
+              <span class="detail-thumb">
+                <i data-lucide="image" class="h-5 w-5"></i>
+              </span>
+              <div>
+                <div class="text-[16px] font-semibold tracking-tight text-foreground">诊断报告</div>
+                <div class="mt-0.5 text-[12px] text-muted-foreground">水彩风景练习 · 2026-08-22 14:30</div>
+              </div>
+              <span class="detail-badge">作品诊断</span>
+            </div>
+
+            <!-- Report content -->
+            <div class="detail-body">
+              <section class="detail-section">
+                <div class="section-num">01</div>
+                <h4 class="section-title">视觉观察</h4>
+                <p class="section-text">画面以远山与近景草地构成横向构图，天空留白较多，整体气氛通透。水彩的湿画法在远山边缘形成了柔和晕染，使远景与中景之间过渡自然。近景草丛以干笔皴擦，保留了纸张纹理，形成粗细对比。</p>
+              </section>
+              <section class="detail-section">
+                <div class="section-num">02</div>
+                <h4 class="section-title">构图分析</h4>
+                <p class="section-text">采用三分法布局，地平线位于画面下三分之一处，使天空获得更大比重，营造辽阔感。视觉重心落在中景一棵孤立的小树，左右两侧的草丛形成对称但不均等的平衡，避免了正中构图的呆板。</p>
+              </section>
+              <section class="detail-section">
+                <div class="section-num">03</div>
+                <h4 class="section-title">色彩诊断</h4>
+                <p class="section-text">整体偏冷调，以群青与佩恩灰为主，局部以那不勒斯黄点缀近景草地形成暖冷呼应。建议在远景中增加一层淡淡的赭石底色，使空间退晕更具温度层次，避免远景过于单薄。</p>
+              </section>
+
+              <!-- Knowledge tags -->
+              <div class="tag-row">
+                <span class="tag-pill">构图</span>
+                <span class="tag-pill">色彩关系</span>
+                <span class="tag-pill">视觉中心</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="border-t border-border/60 py-6">
+        <p class="text-center text-[11px] uppercase tracking-[0.08em] text-muted-foreground">AI美学导师 — 智能美学教育辅助系统</p>
+      </footer>
+    </main>
+
+    <style id="critical-layout">
+      /* Forest header row */
+      .forest-header-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .stats-panel {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 14px 22px;
+        background: var(--brand-card);
+        border: 1px solid var(--brand-border);
+        border-radius: var(--brand-radius-lg);
+        box-shadow: var(--brand-shadow-1);
+      }
+      .stat-divider {
+        width: 1px;
+        height: 36px;
+        background: var(--brand-border);
+      }
+
+      /* Forest map */
+      .forest-map {
+        border: 1px solid var(--brand-border);
+        border-radius: var(--brand-radius-lg);
+        overflow: hidden;
+        box-shadow: var(--brand-shadow-1);
+      }
+      .forest-island {
+        position: relative;
+        min-height: 280px;
+        padding: 36px 28px 20px;
+        background:
+          radial-gradient(ellipse at 30% 78%, rgba(217, 150, 72, 0.16), transparent 52%),
+          radial-gradient(ellipse at 72% 30%, rgba(184, 111, 38, 0.12), transparent 48%),
+          radial-gradient(ellipse at 50% 100%, rgba(111, 126, 69, 0.10), transparent 60%),
+          linear-gradient(180deg, #fbf3e3 0%, #f6ead4 100%);
+      }
+      .island-shape {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(1px);
+        opacity: 0.5;
+      }
+      .island-shape-1 {
+        width: 180px; height: 120px;
+        left: 6%; top: 60%;
+        background: radial-gradient(circle, rgba(184, 111, 38, 0.10), transparent 70%);
+      }
+      .island-shape-2 {
+        width: 220px; height: 140px;
+        right: 4%; top: 8%;
+        background: radial-gradient(circle, rgba(217, 150, 72, 0.12), transparent 70%);
+      }
+      .island-shape-3 {
+        width: 120px; height: 80px;
+        left: 45%; bottom: 6%;
+        background: radial-gradient(circle, rgba(111, 126, 69, 0.10), transparent 70%);
+      }
+
+      /* Tree layer */
+      .tree-layer {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 18px 28px;
+        padding: 24px 0 8px;
+      }
+      .tree-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 12px 10px;
+        background: rgba(255, 250, 242, 0.7);
+        border: 1px solid rgba(223, 210, 191, 0.7);
+        border-radius: 999px 999px 14px 14px;
+        color: var(--brand-primary);
+        cursor: pointer;
+        transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+        box-shadow: var(--brand-shadow-1);
+      }
+      .tree-btn:hover {
+        transform: translateY(-4px);
+        background: rgba(255, 250, 242, 0.95);
+        box-shadow: 0 8px 20px -6px rgba(70, 45, 24, 0.16);
+      }
+      .tree-large { transform: translateY(-2px); }
+      .tree-medium { transform: scale(0.92); opacity: 0.96; }
+      .tree-small { transform: scale(0.8); opacity: 0.88; }
+      .tree-medium:hover { transform: scale(0.92) translateY(-4px); }
+      .tree-small:hover { transform: scale(0.8) translateY(-4px); }
+      .tree-label {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--brand-foreground);
+        letter-spacing: -0.01em;
+      }
+
+      /* Legend */
+      .forest-legend {
+        display: flex;
+        justify-content: center;
+        gap: 28px;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px dashed rgba(223, 210, 191, 0.7);
+      }
+      .legend-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--brand-muted-foreground);
+      }
+
+      /* Archive split layout */
+      .archive-split {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 16px;
+        align-items: start;
+      }
+
+      /* Archive list */
+      .archive-list {
+        display: flex;
+        flex-direction: column;
+      }
+      .report-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 12px;
+        background: var(--brand-card);
+        border: 1px solid var(--brand-border);
+        border-radius: var(--brand-radius-md);
+        box-shadow: var(--brand-shadow-1);
+        cursor: pointer;
+        transition: border-color 0.18s ease, background 0.18s ease;
+        margin-bottom: 8px;
+      }
+      .report-item:hover {
+        border-color: rgba(184, 111, 38, 0.4);
+      }
+      .report-active {
+        border-left: 3px solid var(--brand-primary);
+        background: var(--brand-muted);
+      }
+      .report-icon {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px; height: 32px;
+        border-radius: var(--brand-radius-sm);
+        background: var(--brand-muted);
+        color: var(--brand-muted-foreground);
+      }
+      .report-icon-amber {
+        background: rgba(184, 111, 38, 0.12);
+        color: var(--brand-primary);
+      }
+      .report-meta { flex: 1; min-width: 0; }
+      .report-title {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--brand-foreground);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .report-sub {
+        margin-top: 2px;
+        font-size: 11.5px;
+        color: var(--brand-muted-foreground);
+        font-variant-numeric: tabular-nums;
+      }
+      .report-delete {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px; height: 28px;
+        border-radius: var(--brand-radius-sm);
+        color: var(--brand-muted-foreground);
+        opacity: 0.5;
+        transition: opacity 0.18s ease, color 0.18s ease, background 0.18s ease;
+      }
+      .report-delete:hover {
+        opacity: 1;
+        color: var(--state-error);
+        background: rgba(154, 65, 59, 0.08);
+      }
+
+      /* Detail panel */
+      .archive-detail {
+        background: var(--brand-card);
+        border: 1px solid var(--brand-border);
+        border-radius: var(--brand-radius-lg);
+        box-shadow: var(--brand-shadow-1);
+        overflow: hidden;
+      }
+      .detail-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 18px 20px;
+        border-bottom: 1px solid var(--brand-border);
+        background: linear-gradient(180deg, rgba(243, 230, 210, 0.4), transparent);
+      }
+      .detail-thumb {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px; height: 40px;
+        border-radius: var(--brand-radius-md);
+        background: rgba(184, 111, 38, 0.12);
+        color: var(--brand-primary);
+      }
+      .detail-badge {
+        margin-left: auto;
+        flex-shrink: 0;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba(184, 111, 38, 0.10);
+        color: var(--brand-primary);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+      }
+      .detail-body { padding: 20px; }
+      .detail-section {
+        display: grid;
+        grid-template-columns: 28px 1fr;
+        gap: 14px;
+        padding: 14px 0;
+        border-bottom: 1px dashed rgba(223, 210, 191, 0.6);
+      }
+      .detail-section:last-of-type { border-bottom: none; }
+      .section-num {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--brand-primary);
+        font-variant-numeric: tabular-nums;
+        letter-spacing: 0.04em;
+      }
+      .section-title {
+        font-size: 14.5px;
+        font-weight: 600;
+        color: var(--brand-foreground);
+        letter-spacing: -0.01em;
+      }
+      .section-text {
+        margin-top: 6px;
+        font-size: 13px;
+        line-height: 1.75;
+        color: var(--brand-muted-foreground);
+      }
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid var(--brand-border);
+      }
+      .tag-pill {
+        padding: 5px 12px;
+        border-radius: 999px;
+        background: var(--brand-muted);
+        color: var(--brand-primary);
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.18s ease, color 0.18s ease;
+      }
+      .tag-pill:hover {
+        background: rgba(184, 111, 38, 0.14);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .archive-split {
+          grid-template-columns: 1fr;
+        }
+        .stats-panel { width: 100%; justify-content: space-around; }
+        .forest-island { min-height: 220px; padding: 24px 16px 16px; }
+        .tree-layer { gap: 14px 18px; }
+      }
+    </style>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

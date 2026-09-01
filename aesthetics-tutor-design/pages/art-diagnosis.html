@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品诊断</title>
+    <style id="theme-vars">
+:root {
+  /* Brand palette — warm amber */
+  --brand-primary: #b86f26;
+  --brand-primary-light: #d99648;
+  --brand-primary-dark: #7e4518;
+  --brand-primary-foreground: #fffaf2;
+
+  /* Surfaces */
+  --brand-background: #f5efe5;
+  --brand-foreground: #31281f;
+  --brand-card: #fffaf2;
+  --brand-card-foreground: #31281f;
+  --brand-popover: #fffaf2;
+  --brand-popover-foreground: #31281f;
+
+  /* Muted / secondary text */
+  --brand-muted: #f3e6d2;
+  --brand-muted-foreground: #706256;
+
+  /* Borders & inputs */
+  --brand-border: #dfd2bf;
+  --brand-input: #dfd2bf;
+  --brand-ring: #b86f26;
+
+  /* Radius scale */
+  --brand-radius-sm: 4px;
+  --brand-radius-md: 8px;
+  --brand-radius-lg: 16px;
+
+  /* Semantic state colors */
+  --state-success: #6f7e45;
+  --state-warning: #c9822c;
+  --state-error: #9a413b;
+  --state-info: #6b7d8a;
+
+  /* Typography */
+  --brand-font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+
+  /* Spacing tokens */
+  --brand-s-1: 4px;
+  --brand-s-2: 8px;
+  --brand-s-3: 12px;
+  --brand-s-4: 16px;
+  --brand-s-5: 24px;
+  --brand-s-6: 32px;
+  --brand-s-7: 48px;
+  --brand-s-8: 80px;
+
+  /* Shadows */
+  --brand-shadow-1: 0 1px 2px rgba(70, 45, 24, 0.04), 0 1px 1px rgba(70, 45, 24, 0.03);
+  --brand-shadow-2: 0 8px 24px -8px rgba(70, 45, 24, 0.08);
+  --brand-shadow-3: 0 24px 60px -20px rgba(70, 45, 24, 0.12);
+}
+
+html { background: var(--brand-background); }
+
+body {
+  background:
+    radial-gradient(circle at 50% -18%, rgba(255, 224, 167, 0.38), transparent 43%),
+    var(--brand-background);
+  color: var(--brand-foreground);
+  font-family: var(--brand-font-sans);
+  letter-spacing: -0.008em;
+}
+
+button, input, textarea, select { letter-spacing: inherit; font-family: inherit; }
+
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid rgba(184, 111, 38, 0.42);
+  outline-offset: 2px;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--brand-background);
+    --color-foreground: var(--brand-foreground);
+    --color-card: var(--brand-card);
+    --color-card-foreground: var(--brand-card-foreground);
+    --color-popover: var(--brand-popover);
+    --color-popover-foreground: var(--brand-popover-foreground);
+    --color-primary: var(--brand-primary);
+    --color-primary-foreground: var(--brand-primary-foreground);
+    --color-muted: var(--brand-muted);
+    --color-muted-foreground: var(--brand-muted-foreground);
+    --color-border: var(--brand-border);
+    --color-input: var(--brand-input);
+    --color-ring: var(--brand-ring);
+    --radius-sm: var(--brand-radius-sm);
+    --radius-md: var(--brand-radius-md);
+    --radius-lg: var(--brand-radius-lg);
+  }
+  @layer base {
+    body { background: var(--brand-background); color: var(--brand-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--brand-background); }
+      .text-background { color: var(--brand-background); }
+      .border-background { border-color: var(--brand-background); }
+      .ring-background { --tw-ring-color: var(--brand-background); }
+      .bg-foreground { background-color: var(--brand-foreground); }
+      .text-foreground { color: var(--brand-foreground); }
+      .border-foreground { border-color: var(--brand-foreground); }
+      .ring-foreground { --tw-ring-color: var(--brand-foreground); }
+      .bg-card { background-color: var(--brand-card); }
+      .text-card { color: var(--brand-card); }
+      .border-card { border-color: var(--brand-card); }
+      .ring-card { --tw-ring-color: var(--brand-card); }
+      .bg-card-foreground { background-color: var(--brand-card-foreground); }
+      .text-card-foreground { color: var(--brand-card-foreground); }
+      .border-card-foreground { border-color: var(--brand-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--brand-card-foreground); }
+      .bg-popover { background-color: var(--brand-popover); }
+      .text-popover { color: var(--brand-popover); }
+      .border-popover { border-color: var(--brand-popover); }
+      .ring-popover { --tw-ring-color: var(--brand-popover); }
+      .bg-popover-foreground { background-color: var(--brand-popover-foreground); }
+      .text-popover-foreground { color: var(--brand-popover-foreground); }
+      .border-popover-foreground { border-color: var(--brand-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--brand-popover-foreground); }
+      .bg-primary { background-color: var(--brand-primary); }
+      .text-primary { color: var(--brand-primary); }
+      .border-primary { border-color: var(--brand-primary); }
+      .ring-primary { --tw-ring-color: var(--brand-primary); }
+      .bg-primary-foreground { background-color: var(--brand-primary-foreground); }
+      .text-primary-foreground { color: var(--brand-primary-foreground); }
+      .border-primary-foreground { border-color: var(--brand-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--brand-primary-foreground); }
+      .bg-muted { background-color: var(--brand-muted); }
+      .text-muted { color: var(--brand-muted); }
+      .border-muted { border-color: var(--brand-muted); }
+      .ring-muted { --tw-ring-color: var(--brand-muted); }
+      .bg-muted-foreground { background-color: var(--brand-muted-foreground); }
+      .text-muted-foreground { color: var(--brand-muted-foreground); }
+      .border-muted-foreground { border-color: var(--brand-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--brand-muted-foreground); }
+      .bg-border { background-color: var(--brand-border); }
+      .text-border { color: var(--brand-border); }
+      .border-border { border-color: var(--brand-border); }
+      .ring-border { --tw-ring-color: var(--brand-border); }
+      .bg-input { background-color: var(--brand-input); }
+      .text-input { color: var(--brand-input); }
+      .border-input { border-color: var(--brand-input); }
+      .ring-input { --tw-ring-color: var(--brand-input); }
+      .bg-ring { background-color: var(--brand-ring); }
+      .text-ring { color: var(--brand-ring); }
+      .border-ring { border-color: var(--brand-ring); }
+      .ring-ring { --tw-ring-color: var(--brand-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <main>
+      <!-- Shared Top Navigation Header -->
+      <header class="sticky top-0 z-50 w-full" style="height:64px; background: rgba(255, 250, 242, 0.72); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--brand-border);">
+        <div class="mx-auto flex h-full items-center" style="max-width:1200px; padding:0 24px;">
+          <!-- Logo -->
+          <a href="#" class="flex items-center" style="gap:9px;">
+            <span class="flex items-center justify-center" style="width:32px; height:32px; border-radius:9999px; background: var(--brand-primary);">
+              <i data-lucide="aperture" style="width:18px; height:18px; color: var(--brand-primary-foreground);"></i>
+            </span>
+            <span class="text-foreground" style="font-size:15px; font-weight:620; letter-spacing:-0.02em;">AI美学导师</span>
+          </a>
+          <!-- Nav tabs (right-aligned) -->
+          <nav class="flex items-center" style="margin-left:auto; gap:4px;">
+            <a href="#" class="flex items-center rounded-md text-muted-foreground" style="padding:7px 12px; font-size:13px; gap:6px;">
+              <i data-lucide="message-circle" style="width:15px; height:15px;"></i>
+              <span>对话</span>
+            </a>
+            <a href="#" class="flex items-center rounded-md text-primary bg-muted" style="padding:7px 12px; font-size:13px; font-weight:580; gap:6px;">
+              <i data-lucide="image" style="width:15px; height:15px;"></i>
+              <span>作品诊断</span>
+            </a>
+            <a href="#" class="flex items-center rounded-md text-muted-foreground" style="padding:7px 12px; font-size:13px; gap:6px;">
+              <i data-lucide="file-text" style="width:15px; height:15px;"></i>
+              <span>论文解读</span>
+            </a>
+            <a href="#" class="flex items-center rounded-md text-muted-foreground" style="padding:7px 12px; font-size:13px; gap:6px;">
+              <i data-lucide="archive" style="width:15px; height:15px;"></i>
+              <span>学习档案</span>
+            </a>
+            <button type="button" class="flex items-center justify-center rounded-full text-muted-foreground" style="width:34px; height:34px; margin-left:8px; border:1px solid var(--brand-border); background: transparent;">
+              <i data-lucide="user" style="width:16px; height:16px;"></i>
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Page Content Container -->
+      <div class="mx-auto" style="max-width:1200px; padding:28px 24px 56px;">
+        <!-- Page Header Section -->
+        <section style="margin-bottom:28px;">
+          <a href="#" class="inline-flex items-center text-muted-foreground" style="font-size:12px; gap:5px; margin-bottom:18px;">
+            <i data-lucide="arrow-left" style="width:14px; height:14px;"></i>
+            <span>返回首页</span>
+          </a>
+          <div class="flex items-center justify-center" style="width:46px; height:46px; border-radius:9999px; background: var(--brand-primary); margin-bottom:14px;">
+            <i data-lucide="image" style="width:22px; height:22px; color: var(--brand-primary-foreground);"></i>
+          </div>
+          <h1 class="text-foreground" style="font-size:25px; font-weight:620; letter-spacing:-0.035em; line-height:1.2; margin-bottom:8px;">作品诊断</h1>
+          <p class="text-muted-foreground" style="font-size:13px; line-height:1.65; max-width:720px;">
+            上传艺术作品图片，AI 将从构图、色彩、技法等多个维度提供专业的美学诊断分析
+          </p>
+        </section>
+
+        <!-- Two-column form sections grid -->
+        <div class="diagnosis-grid">
+          <!-- Upload Section (card) -->
+          <section class="bg-card" style="border:1px solid var(--brand-border); border-radius:16px; box-shadow: var(--brand-shadow-1); padding:20px;">
+            <h2 class="text-foreground" style="font-size:15px; font-weight:620; margin-bottom:16px;">上传作品</h2>
+            <input type="file" id="art-upload" accept="image/jpeg,image/png,image/webp" style="display:none;">
+            <label for="art-upload" class="flex flex-col items-center justify-center" style="min-height:240px; border:2px dashed var(--brand-border); border-radius:13px; background: rgba(243, 230, 210, 0.32); padding:24px; cursor:pointer;">
+              <span class="flex items-center justify-center" style="width:48px; height:48px; border-radius:9999px; background: rgba(184, 111, 38, 0.12); margin-bottom:14px;">
+                <i data-lucide="upload" style="width:22px; height:22px; color: var(--brand-primary);"></i>
+              </span>
+              <p style="font-size:14px; margin-bottom:6px;">
+                <span class="text-primary" style="font-weight:550;">点击上传</span>
+                <span class="text-muted-foreground"> 或拖拽图片到此处</span>
+              </p>
+              <p class="text-muted-foreground" style="font-size:11px;">支持 JPG、PNG、WebP 格式，大小不超过 10MB</p>
+            </label>
+          </section>
+
+          <!-- Work Info Form Section (card) -->
+          <section class="bg-card" style="border:1px solid var(--brand-border); border-radius:16px; box-shadow: var(--brand-shadow-1); padding:20px;">
+            <h2 class="text-foreground" style="font-size:15px; font-weight:620; margin-bottom:16px;">作品信息</h2>
+            <form class="flex flex-col" style="gap:14px;" onsubmit="return false;">
+              <!-- 作品类型 (required select) -->
+              <div class="flex flex-col" style="gap:6px;">
+                <label for="work-type" class="text-foreground" style="font-size:12px; font-weight:520;">
+                  作品类型 <span class="text-primary">*</span>
+                </label>
+                <div class="select-wrap">
+                  <select id="work-type" style="width:100%; height:42px; border-radius:10px; border:1px solid #c9b89e; padding:0 36px 0 12px; font-size:13px; appearance:none; -webkit-appearance:none; background-color: var(--brand-card); color: var(--brand-foreground);">
+                    <option value="">请选择作品类型</option>
+                    <option value="painting">绘画</option>
+                    <option value="digital">数字艺术</option>
+                    <option value="photo">摄影</option>
+                    <option value="sketch">素描/速写</option>
+                    <option value="poster">海报</option>
+                    <option value="ppt">PPT</option>
+                    <option value="other">其他</option>
+                  </select>
+                  <i data-lucide="chevron-down" style="width:16px; height:16px; color: var(--brand-muted-foreground);"></i>
+                </div>
+              </div>
+
+              <!-- 使用场景 -->
+              <div class="flex flex-col" style="gap:6px;">
+                <label for="work-scene" class="text-foreground" style="font-size:12px; font-weight:520;">使用场景</label>
+                <input id="work-scene" type="text" placeholder="例如：课堂练习、比赛投稿、商业设计..." class="text-foreground" style="width:100%; height:42px; border-radius:10px; border:1px solid #c9b89e; padding:0 12px; font-size:13px; background-color: var(--brand-card);">
+              </div>
+
+              <!-- 表达意图 -->
+              <div class="flex flex-col" style="gap:6px;">
+                <label for="work-intent" class="text-foreground" style="font-size:12px; font-weight:520;">表达意图</label>
+                <textarea id="work-intent" rows="3" placeholder="描述你想通过这幅作品传达什么情感、想法或理念..." class="text-foreground" style="width:100%; border-radius:10px; border:1px solid #c9b89e; padding:10px 12px; font-size:13px; line-height:1.6; background-color: var(--brand-card); resize:vertical;"></textarea>
+              </div>
+
+              <!-- 本轮关注点 -->
+              <div class="flex flex-col" style="gap:6px;">
+                <label for="work-focus" class="text-foreground" style="font-size:12px; font-weight:520;">本轮关注点</label>
+                <textarea id="work-focus" rows="2" placeholder="你希望AI重点关注哪些方面？例如：色彩搭配、构图布局、光影处理..." class="text-foreground" style="width:100%; border-radius:10px; border:1px solid #c9b89e; padding:10px 12px; font-size:13px; line-height:1.6; background-color: var(--brand-card); resize:vertical;"></textarea>
+              </div>
+
+              <!-- Submit button -->
+              <button type="submit" class="flex items-center justify-center bg-primary text-primary-foreground" style="width:100%; height:42px; border-radius:10px; font-size:14px; font-weight:580; gap:7px; border:none; cursor:pointer; margin-top:4px;">
+                <i data-lucide="sparkles" style="width:16px; height:16px;"></i>
+                <span>开始诊断</span>
+              </button>
+            </form>
+          </section>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="w-full text-center" style="padding:28px 24px; border-top:1px solid var(--brand-border);">
+        <p class="text-muted-foreground" style="font-size:11px; text-transform:uppercase; letter-spacing:0.08em;">
+          AI美学导师 — 智能美学教育辅助系统
+        </p>
+      </footer>
+    </main>
+    <style id="critical-layout">
+      .diagnosis-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      @media (min-width: 880px) {
+        .diagnosis-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 24px;
+        }
+      }
+      .select-wrap { position: relative; }
+      .select-wrap > i {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+      }
+    </style>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

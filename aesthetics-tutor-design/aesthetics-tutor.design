@@ -1,0 +1,56 @@
+{
+  "data": [
+    {
+      "id": "page-art-diagnosis",
+      "title": "作品诊断",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1788326400000,
+      "canvasData": {
+        "x": 0,
+        "y": 0,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 900,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-8f9cb89a",
+          "measuredAt": 1788244570144
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/art-diagnosis.html",
+        "interactions": []
+      }
+    },
+    {
+      "id": "page-archive",
+      "title": "学习档案",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1788326400000,
+      "canvasData": {
+        "x": 480,
+        "y": 0,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 900,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-cb01ed94",
+          "measuredAt": 1788244570144
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/archive.html",
+        "interactions": []
+      }
+    }
+  ],
+  "config": {
+    "autoLayout": true,
+    "deviceType": "desktop",
+    "projectName": "AI美学导师页面设计稿",
+    "visualEditorEnabled": false
+  }
+}
